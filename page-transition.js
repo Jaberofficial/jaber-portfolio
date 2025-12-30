@@ -10,7 +10,7 @@ if (!sessionStorage.getItem("visited")) {
 window.addEventListener("load", () => {
     setTimeout(() => {
         loader.classList.remove("active");
-    }, 2500); // ⏳ 2.5 seconds
+    }, 1500); // ⏳ 1.5 seconds
 });
 
 // PAGE CHANGE TRANSITION – SLOW
@@ -29,6 +29,6 @@ document.querySelectorAll("a[href]").forEach(link => {
 
         setTimeout(() => {
             window.location.href = url;
-        }, 1500); // ⏳ 1.5 seconds
+        }, 1000); // ⏳ 1.5 seconds
     });
 });

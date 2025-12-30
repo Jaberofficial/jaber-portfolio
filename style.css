@@ -23,12 +23,15 @@ a {
    HERO SECTION
 ========================= */
 .hero-section {
-  min-height: calc(100vh - 70px);
+  min-height: auto;
   display: flex;
    align-items: flex-start;   /* ✅ change */
-  padding-top: 80px;    
+  padding-top: 80px;
+   margin-bottom: 100px;    
   background: linear-gradient(135deg, #000, #111);
 }
+
+
 
 
 .hero-section h1 {
@@ -446,7 +449,7 @@ body.light-mode .custom-footer {
    CERTIFICATE SECTION
 ========================= */
 .certificate-section {
-  min-height: 100vh;
+  min-height: auto;
   padding: 60px 0 80px;
   background: linear-gradient(135deg, #0b0f14, #111827);
 }

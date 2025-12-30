@@ -23,16 +23,23 @@ a {
    HERO SECTION
 ========================= */
 .hero-section {
-  min-height: 100vh;
+  min-height: calc(100vh - 70px);
   display: flex;
-  align-items: center;
+   align-items: flex-start;   /* ✅ change */
+  padding-top: 80px;    
   background: linear-gradient(135deg, #000, #111);
 }
+
 
 .hero-section h1 {
   font-size: 3rem;
   font-weight: 700;
 }
+
+.hero-section h1 {
+  margin-top: 0;
+}
+
 
 
 /* =========================
@@ -84,7 +91,7 @@ a {
    COMMON SECTION
 ========================= */
 .section {
-  padding: 80px 0;
+  padding: 60px 0;
 }
 
 .section-title {
@@ -440,7 +447,7 @@ body.light-mode .custom-footer {
 ========================= */
 .certificate-section {
   min-height: 100vh;
-  padding: 120px 0 80px;
+  padding: 60px 0 80px;
   background: linear-gradient(135deg, #0b0f14, #111827);
 }
 

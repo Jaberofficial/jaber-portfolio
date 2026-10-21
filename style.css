@@ -772,3 +772,59 @@ body.light-mode .logo-dark {
 body.light-mode .logo-light {
   display: block;
 }
+
+
+/* ===== মোবাইল ফিক্স ===== */
+
+/* ১) পেজ ডানে-বামে নড়া বন্ধ */
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: clip;
+}
+
+/* g-5 row মোবাইলে container-এর বাইরে বেরোত, সেটার মূল কারণ ঠিক করা */
+@media (max-width: 991.98px) {
+  .row.g-5 {
+    --bs-gutter-x: 1.5rem;
+  }
+}
+
+/* ২) আইকন চ্যাপ্টা না হয়ে গোল থাকবে, জায়গা কম হলে পরের লাইনে যাবে */
+.social-icons,
+.follow-icons {
+  flex-wrap: wrap;
+}
+
+.social-icons a,
+.follow-icons a {
+  flex-shrink: 0;
+}
+
+/* ছোট মোবাইলে আইকন একটু ছোট, যাতে ছয়টা এক লাইনে ধরে */
+@media (max-width: 400px) {
+  .social-icons {
+    gap: 12px;
+  }
+
+  .social-icons a {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .follow-icons {
+    gap: 10px;
+  }
+}
+
+/* ৩) Contact-এর লম্বা ইমেইল বক্সের বাইরে না যায় */
+.info-box > div {
+  min-width: 0;
+}
+
+.info-box p {
+  overflow-wrap: anywhere;
+}

@@ -1,11 +1,74 @@
+/* =====================================================
+   THEME COLORS  (সব রঙ এখান থেকে নিয়ন্ত্রণ হয়)
+===================================================== */
+
+/* Dark mode (default) */
+body {
+  --bg: #0b0f14;            /* সব সেকশন + Hero + Footer-এর একই background */
+  --card: #0f172a;          /* কার্ডের background */
+  --card-alt: #111827;      /* Project কার্ড */
+  --text: #ffffff;
+  --heading: #ffffff;
+  --muted: #cbd5e1;
+  --muted-soft: #94a3b8;
+  --chip: #1e293b;
+  --skill: #15191e;
+  --input: #3f3f3f;
+  --placeholder: #d1d5db;
+  --shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.5);
+  --line: rgba(255, 255, 255, 0.08);
+}
+
+/* Light mode */
+body.light-mode {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --card-alt: #ffffff;
+  --text: #0f172a;
+  --heading: #0f172a;
+  --muted: #475569;
+  --muted-soft: #64748b;
+  --chip: #e2e8f0;
+  --skill: #e2e8f0;
+  --input: #ffffff;
+  --placeholder: #64748b;
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.15);
+  --line: rgba(0, 0, 0, 0.08);
+}
+
 /* =========================
    GLOBAL
 ========================= */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  padding-top: 70px;
+  padding-top: var(--nav-h, 115px); /* navbar-এর আসল উচ্চতা (JS থেকে আসে) */
   font-family: 'Segoe UI', sans-serif;
-  background: #000;
-  color: #fff;
+  background: var(--bg);
+  color: var(--text);
+  animation: pageFade 0.6s ease;
+}
+
+@keyframes pageFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+body,
+section,
+.custom-nav,
+.custom-footer,
+.info-box,
+.project-box,
+.certificate-card,
+.education-card,
+.contact-form,
+.follow-box {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
@@ -19,31 +82,113 @@ a {
   background: rgba(0, 0, 0, 0.9);
 }
 
+.custom-logo {
+  text-align: center;
+  font-size: xx-small;
+  font-style: italic;
+}
+
+/* স্ক্রল করলে যে সেকশনে আছেন, মেনুতে সেটা লাল */
+.custom-nav .nav-link.active {
+  color: #dc3545 !important;
+}
+
+body.light-mode .custom-nav {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --bs-navbar-color: rgba(0, 0, 0, 0.65);
+  --bs-navbar-hover-color: #000;
+  --bs-navbar-active-color: #000;
+  --bs-navbar-toggler-border-color: rgba(0, 0, 0, 0.25);
+}
+
+body.light-mode .custom-nav .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+body.light-mode .custom-logo h3 {
+  color: #000;
+}
+
+/* Dark / Light থিম বাটন: বর্ডার ছাড়া, গোল */
+#themeToggle {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+#themeToggle:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: rotate(20deg);
+}
+
+body.light-mode #themeToggle {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+body.light-mode #themeToggle:hover {
+  background: rgba(0, 0, 0, 0.14);
+}
+
+/* =========================
+   সব সেকশনে একই gap + একই background
+========================= */
+section {
+  padding: 30px 0;
+  min-height: auto;
+  background: var(--bg);
+  color: var(--text);
+  scroll-margin-top: var(--nav-h, 115px); /* fixed navbar-এর নিচে হেডিং ঢাকা পড়বে না */
+}
+
+/* Skills সেকশনে HTML-এ bg-dark / text-white আছে, সেটা এখানে থিমের সাথে মেলানো হলো */
+#skills {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+#skills .section-title {
+  color: var(--heading) !important;
+}
+
+/* Bootstrap-এর g-4 / g-5 gutter-এর সাথে mt-2 / mt-4 মিলে যে বাড়তি gap হতো, সেটা বন্ধ */
+section > .container > .row {
+  margin-top: calc(-1 * var(--bs-gutter-y)) !important;
+}
+
+/* সব সেকশন টাইটেল একই সাইজ, নিচে একই gap */
+.section-title,
+.contact-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin-bottom: 3rem;
+}
+
 /* =========================
    HERO SECTION
 ========================= */
 .hero-section {
-  min-height: auto;
   display: flex;
-   align-items: flex-start;   /* ✅ change */
-  padding-top: 80px;
-   margin-bottom: 100px;    
-  background: linear-gradient(135deg, #000, #111);
+  align-items: flex-start;
+  padding-top: 30px;
 }
-
-
-
 
 .hero-section h1 {
   font-size: 3rem;
   font-weight: 700;
-}
-
-.hero-section h1 {
   margin-top: 0;
 }
-
-
 
 /* =========================
    HERO BUTTONS
@@ -63,7 +208,6 @@ a {
   transition: all 0.3s ease;
 }
 
-/* Hire Me Button */
 .hire-btn {
   background: linear-gradient(135deg, #f43f5e, #ec4899);
   color: #ffffff;
@@ -76,7 +220,6 @@ a {
   color: #ffffff;
 }
 
-/* Download CV Button */
 .cv-btn {
   background: linear-gradient(135deg, #f43f5e, #ec4899);
   color: #ffffff;
@@ -89,24 +232,63 @@ a {
   transform: translateY(-4px);
 }
 
-
 /* =========================
-   COMMON SECTION
+   TYPING CURSOR
 ========================= */
-.section {
-  padding: 60px 0;
+.cursor {
+  font-weight: bold;
+  animation: blink 1s infinite;
 }
 
-.section-title {
-  text-align: center;
-  font-weight: 700;
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* =========================
+   INFO BOX (About + Contact)
+========================= */
+.info-box {
+  background: var(--card);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.info-icon {
+  width: 60px;
+  height: 60px;
+  background: #ffffff;
+  color: #000;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.info-box h6 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--heading);
+}
+
+.info-box p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
 }
 
 /* =========================
    SKILLS
 ========================= */
 .skill-card {
-  background: #15191e;
+  background: var(--skill);
+  color: var(--text);
   padding: 20px;
   border-radius: 8px;
   transition: 0.3s;
@@ -114,18 +296,67 @@ a {
 
 .skill-card:hover {
   background: #0d6efd;
+  color: #ffffff;
 }
 
-/* ==========
-   PROJECT 
-=============*/
-
-.project-page {
-  background: #0b0f14;
+/* =========================
+   EDUCATION
+========================= */
+.education-card {
+  background: var(--card);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  border-radius: 14px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  transition: 0.4s ease;
+  height: 100%;
 }
 
+.education-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+.edu-icon {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #f43f5e, #ec4899);
+  color: #ffffff;
+  font-size: 22px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.edu-content h5 {
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: var(--heading);
+}
+
+.edu-institute {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.edu-date {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--muted-soft);
+}
+
+/* =========================
+   PROJECTS
+========================= */
 .project-box {
-  background: #111827;
+  background: var(--card-alt);
+  box-shadow: var(--shadow);
   border-radius: 14px;
   overflow: hidden;
   transition: 0.4s ease;
@@ -140,7 +371,7 @@ a {
 
 .project-content {
   padding: 20px;
-  color: #ffffff;
+  color: var(--text);
 }
 
 .project-content h5 {
@@ -150,7 +381,7 @@ a {
 
 .project-content p {
   font-size: 0.9rem;
-  color: #cbd5e1;
+  color: var(--muted);
   margin-bottom: 18px;
 }
 
@@ -170,106 +401,115 @@ a {
 
 .project-box:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-}
-
-
-/* =========================
-   TYPING CURSOR
-========================= */
-.cursor {
-  font-weight: bold;
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
+  box-shadow: var(--shadow-hover);
 }
 
 /* =========================
-   LIGHT MODE
+   CERTIFICATES
 ========================= */
-body.light-mode {
-  background: #fff;
-  color: #000;
-}
-
-body.light-mode .hero-section {
-  background: #f8f9fa;
-  color: #000;
-}
-
-body.light-mode .skill-card {
-  background: #e5e7eb;
-  color: #000;
-}
-
-body.light-mode .custom-footer {
-  background: #e5e7eb;
-  color: #000;
-}
-
-/* =========================
-   CONTACT PAGE
-========================= */
-.contact-section {
-  min-height: 100vh;
-  padding: 60px 0 80px;
-  background: linear-gradient(135deg, #0b0f14, #111827);
-}
-
-.contact-title {
+.certificate-card {
+  background: var(--card);
+  box-shadow: var(--shadow);
+  padding: 28px 22px 35px;
+  border-radius: 16px;
   text-align: center;
-  font-size: 2.2rem;
-  font-weight: 700;
-
+  position: relative;
+  transition: 0.4s ease;
+  height: 100%;
 }
 
-/* LEFT INFO BOX */
-.info-box {
-  background: #0f172a;
-  padding: 18px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 18px;
+.certificate-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(135deg, #f43f5e, #ec4899);
+  border-radius: 0 0 16px 16px;
 }
 
-.info-icon {
-  width: 60px;
-  height: 60px;
-  background: #ffffff;
-  color: #000;
-  border-radius: 8px;
+.certificate-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-hover);
+}
+
+.cert-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f43f5e, #ec4899);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 28px;
+  color: #ffffff;
 }
 
-.info-box h6 {
-  margin: 0;
+.certificate-card h5 {
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--heading);
+}
+
+.cert-title {
+  color: #f43f5e;
   font-weight: 600;
+  font-size: 0.95rem;
 }
 
-.info-box p {
-  margin: 0;
+.cert-desc {
   font-size: 0.9rem;
-  color: #cbd5e1;
+  color: var(--muted);
+  margin: 14px 0;
 }
 
-/* FOLLOW BOX */
+.cert-tags {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.cert-tags span {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  border-radius: 12px;
+  background: var(--chip);
+  color: var(--text);
+}
+
+.cert-btn {
+  display: inline-block;
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #f43f5e, #ec4899);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 22px;
+  transition: 0.3s;
+}
+
+.cert-btn:hover {
+  background: #0d6efd;
+  color: #ffffff;
+}
+
+/* =========================
+   CONTACT
+========================= */
 .follow-box {
-  background: #0f172a;
+  background: var(--card);
+  box-shadow: var(--shadow);
   padding: 18px;
   border-radius: 10px;
 }
 
 .follow-box h6 {
   margin-bottom: 10px;
+  color: var(--heading);
 }
 
 .follow-icons {
@@ -287,6 +527,7 @@ body.light-mode .custom-footer {
   align-items: center;
   justify-content: center;
   transition: 0.3s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
 .follow-icons a:hover {
@@ -294,9 +535,9 @@ body.light-mode .custom-footer {
   color: #fff;
 }
 
-/* CONTACT FORM */
 .contact-form {
-  background: #0f172a;
+  background: var(--card);
+  box-shadow: var(--shadow);
   padding: 30px;
   border-radius: 12px;
 }
@@ -304,17 +545,22 @@ body.light-mode .custom-footer {
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  background: #3f3f3f;
-  border: none;
+  background: var(--input);
+  border: 1px solid transparent;
   padding: 12px;
   margin-bottom: 15px;
-  color: #ffffff;
+  color: var(--text);
   border-radius: 5px;
+}
+
+body.light-mode .contact-form input,
+body.light-mode .contact-form textarea {
+  border-color: #cbd5e1;
 }
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: #d1d5db;
+  color: var(--placeholder);
 }
 
 .contact-form button {
@@ -333,70 +579,14 @@ body.light-mode .custom-footer {
 }
 
 /* =========================
-   EDUCATION SECTION
-========================= */
-
-.education-section {
-  background: linear-gradient(135deg, #0b0f14, #111827);
-}
-
-.education-card {
-  background: #0f172a;
-  padding: 28px;
-  border-radius: 14px;
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-  transition: 0.4s ease;
-  height: 100%;
-}
-
-.education-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-}
-
-.edu-icon {
-  width: 52px;
-  height: 52px;
-  background: linear-gradient(135deg, #f43f5e, #ec4899);
-  color: #ffffff;
-  font-size: 22px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.edu-content h5 {
-  margin-bottom: 6px;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.edu-institute {
-  margin: 0;
-  font-size: 0.95rem;
-  color: #cbd5e1;
-}
-
-.edu-date {
-  display: inline-block;
-  margin-top: 6px;
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-
-
-/* =========================
    FOOTER
 ========================= */
 .custom-footer {
-  background: linear-gradient(135deg, #0b0f14, #111827);
+  background: var(--bg);
+  border-top: 1px solid var(--line);
   padding: 60px 0 40px;
   text-align: center;
-  color: #ffffff;
+  color: var(--text);
 }
 
 .footer-title {
@@ -422,6 +612,7 @@ body.light-mode .custom-footer {
   justify-content: center;
   font-size: 20px;
   transition: 0.3s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .social-icons a:hover {
@@ -432,122 +623,12 @@ body.light-mode .custom-footer {
 
 .footer-copy {
   font-size: 0.9rem;
-  color: #cbd5e1;
+  color: var(--muted);
 }
-
-
-.custom-logo {
-
-  text-align: center;
-  font-size: xx-small;
-  font-style: italic;
-}
-
-
 
 /* =========================
-   CERTIFICATE SECTION
+   PAGE LOADER
 ========================= */
-.certificate-section {
-  min-height: auto;
-  padding: 60px 0 80px;
-  background: linear-gradient(135deg, #0b0f14, #111827);
-}
-
-.certificate-card {
-  background: #0f172a;
-  padding: 28px 22px 35px;
-  border-radius: 16px;
-  text-align: center;
-  position: relative;
-  transition: 0.4s ease;
-  height: 100%;
-}
-
-.certificate-card::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 4px;
-  width: 100%;
-  background: linear-gradient(135deg, #f43f5e, #ec4899);
-  border-radius: 0 0 16px 16px;
-}
-
-.certificate-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-}
-
-.cert-icon {
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 15px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #f43f5e, #ec4899);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  color: #ffffff;
-}
-
-.certificate-card h5 {
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.cert-title {
-  color: #f43f5e;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-.cert-desc {
-  font-size: 0.9rem;
-  color: #cbd5e1;
-  margin: 14px 0;
-}
-
-.cert-tags {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 18px;
-}
-
-.cert-tags span {
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  border-radius: 12px;
-  background: #1e293b;
-  color: #ffffff;
-}
-
-.cert-btn {
-  display: inline-block;
-  padding: 10px 24px;
-  background: linear-gradient(135deg, #f43f5e, #ec4899);
-  color: #ffffff;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border-radius: 22px;
-  transition: 0.3s;
-}
-
-.cert-btn:hover {
-  background: #0d6efd;
-  color: #ffffff;
-}
-
-
-
-/* =========================
-   PAGE LOADER FINAL
-========================= */
-
 #page-loader {
   position: fixed;
   inset: 0;
@@ -566,14 +647,13 @@ body.light-mode .custom-footer {
   pointer-events: all;
 }
 
-/* Loader Content */
 .loader-content {
   text-align: center;
-  animation: fadeIn 0.6s ease;
+  animation: pageFade 0.6s ease;
 }
 
-/* LOGO ROTATE */
-.loader-logo {
+/* <!-- Page Loader (শুধু প্রথমবার splash) --> */
+/* .loader-logo {
   width: 70px;
   height: 70px;
   background: #ec3155;
@@ -589,16 +669,10 @@ body.light-mode .custom-footer {
 }
 
 @keyframes rotateLogo {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* TEXT */
 .loader-name {
   font-size: 3.6rem;
   font-weight: 700;
@@ -614,9 +688,14 @@ body.light-mode .custom-footer {
 
 .loader-title span {
   color: #ec3155;
-}
+} */
 
-/* DOTS */
+/* 
+body.light-mode .loader-title {
+  color: #000;
+} */
+
+
 .loader-dots span {
   display: inline-block;
   width: 7px;
@@ -627,54 +706,69 @@ body.light-mode .custom-footer {
   animation: dotBlink 1.2s infinite both;
 }
 
-.loader-dots span:nth-child(2) {
-  animation-delay: .15s
-}
-
-.loader-dots span:nth-child(3) {
-  animation-delay: .3s
-}
+.loader-dots span:nth-child(2) { animation-delay: .15s; }
+.loader-dots span:nth-child(3) { animation-delay: .3s; }
 
 @keyframes dotBlink {
-  0% {
-    opacity: .2
-  }
-
-  20% {
-    opacity: 1
-  }
-
-  100% {
-    opacity: .2
-  }
+  0% { opacity: .2; }
+  20% { opacity: 1; }
+  100% { opacity: .2; }
 }
-
-/* =========================
-   PAGE FADE IN EFFECT
-========================= */
-
-body {
-  animation: pageFade 0.6s ease;
-}
-
-@keyframes pageFade {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-/* =========================
-   LIGHT MODE
-========================= */
 
 body.light-mode #page-loader {
   background: #fff;
 }
 
-body.light-mode .loader-title {
-  color: #000;
+
+/* লোডারের লোগো: সাইজ + হালকা পালস অ্যানিমেশন */
+.loader-img {
+  width: min(420px, 80vw);
+  height: auto;
+  margin-bottom: 28px;
+  animation: logoPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.85;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 576px) {
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+
+  .loader-name,
+  .loader-title {
+    font-size: 2.4rem;
+  }
+}
+
+.site-logo {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+/* Dark mode (ডিফল্ট): dark লোগো দেখাবে, light লোগো লুকানো */
+.logo-light {
+  display: none;
+}
+
+/* Light mode: dark লোগো লুকাবে, light লোগো দেখাবে */
+body.light-mode .logo-dark {
+  display: none;
+}
+
+body.light-mode .logo-light {
+  display: block;
 }
